@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "name": "Paris",
+    "country": "France",
+    "population": 2148327,
+    "lat": 48.8566,
+    "lng": 2.3522
+  },
+  {
+    "id": 2,
+    "name": "Tokyo",
+    "country": "Japon",
+    "population": 13929286,
+    "lat": 35.6895,
+    "lng": 139.6917
+  },
+  {
+    "id": 3,
+    "name": "Washington, D.C.",
+    "country": "États-Unis",
+    "population": 705749,
+    "lat": 38.9072,
+    "lng": -77.0369
+  },
+  {
+    "id": 4,
+    "name": "Brasilia",
+    "country": "Brésil",
+    "population": 3039444,
+    "lat": -15.8267,
+    "lng": -47.9218
+  },
+  {
+    "id": 5,
+    "name": "Le Caire",
+    "country": "Égypte",
+    "population": 20484965,
+    "lat": 30.0444,
+    "lng": 31.2357
+  },
+  {
+    "id": 6,
+    "name": "Canberra",
+    "country": "Australie",
+    "population": 462000,
+    "lat": -35.2809,
+    "lng": 149.1300
+  },
+  {
+    "id": 7,
+    "name": "Moscou",
+    "country": "Russie",
+    "population": 12506468,
+    "lat": 55.7558,
+    "lng": 37.6173
+  },
+  {
+    "id": 8,
+    "name": "Pékin",
+    "country": "Chine",
+    "population": 21542000,
+    "lat": 39.9042,
+    "lng": 116.4074
+  },
+  {
+    "id": 9,
+    "name": "Ottawa",
+    "country": "Canada",
+    "population": 934243,
+    "lat": 45.4215,
+    "lng": -75.6972
+  },
+  {
+    "id": 10,
+    "name": "Buenos Aires",
+    "country": "Argentine",
+    "population": 3075646,
+    "lat": -34.6037,
+    "lng": -58.3816
+  }
+]
