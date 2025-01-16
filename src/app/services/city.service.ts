@@ -11,13 +11,18 @@ export class CityService {
 
   constructor(private http: HttpClient) {}
 
+  // Getter for the cities signal
   public get cities() {
     return this.citiesSignal
   }
 
+  /** 
+    Function to load the cities who are in the data/cities.json file 
+    with the HttpClient service
+  */
+
   public async loadCities(): Promise<void> {
     try {
-      console.log('Chargement des villes...')
       const cities = await firstValueFrom(
         this.http.get<City[]>('./data/cities.json'),
       )
@@ -27,13 +32,19 @@ export class CityService {
     }
   }
 
+  /* Function to delete a city */
+
   public deleteCity(id: number): void {
     this.citiesSignal.update(cities => cities.filter(city => city.id !== id))
   }
 
+  /* Function to add a city */
+
   public addCity(city: City): void {
     this.citiesSignal.update(cities => [...cities, city])
   }
+
+  /* Function to update a city */
 
   public updateCity(city: City): void {
     this.citiesSignal.update(cities =>

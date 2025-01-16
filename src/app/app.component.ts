@@ -14,6 +14,6 @@ export class AppComponent implements OnInit {
   constructor(private CityService: CityService) {}
 
   ngOnInit() {
-    this.CityService.loadCities()
+    this.CityService.loadCities() // Load the cities from the service
   }
 }

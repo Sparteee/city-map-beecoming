@@ -10,22 +10,26 @@ import { FormsModule } from '@angular/forms'
   imports: [CommonModule, FormsModule],
 })
 export class ListItemComponent {
+  public isEdit = false
+
+  /* Input and Output decorators */
   @Input() city: City | null = null
   @Output() delete = new EventEmitter<number>()
   @Output() update = new EventEmitter<City>()
 
-  public isEdit = false
-
-  constructor() {}
-
+  /* Function to toggle the edit modal */
   public toggleEdit(): void {
     this.isEdit = !this.isEdit
   }
+
+  /* Function to emit the updated city */
 
   public updateCity(): void {
     this.toggleEdit()
     this.update.emit(this.city as City)
   }
+
+  /* Function to emit the deleted city */
 
   public deleteCity(): void {
     this.delete.emit(this.city?.id)
