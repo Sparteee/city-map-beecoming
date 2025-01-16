@@ -1,0 +1,7 @@
+<div class="list">
+  <button>Ajouter un élément</button>
+
+  <div>
+    <app-list-item *ngFor="let city of cities" [city]="city" (delete)="deleteCity(city.id)"></app-list-item>
+  </div>
+</div>

@@ -1,0 +1,49 @@
+.list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.list-item:hover {
+  background-color: #f1f1f1;
+}
+
+span {
+  font-size: 14px;
+  color: #333;
+}
+
+button {
+  margin-left: 10px;
+}
+
+button.delete {
+  background-color: #dc3545;
+}
+
+button.delete:hover {
+  background-color: #a71d2a;
+}
+
+button.save {
+  background-color: #28a745;
+}
+
+button.save:hover {
+  background-color: #1c7c31;
+}
+
+button.cancel {
+  background-color: #ffc107;
+  color: #212529;
+}
+
+button.cancel:hover {
+  background-color: #e0a800;
+}
