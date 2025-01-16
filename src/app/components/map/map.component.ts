@@ -54,7 +54,6 @@ export class MapComponent implements OnInit {
   }
   ngOnInit(): void {
     this.initMap()
-    this.cityService.loadCities()
   }
 
   private initMap(): void {

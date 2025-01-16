@@ -1,7 +1,38 @@
+<button (click)="toggleAdd()">Ajouter un élément</button>
 <div class="list">
-  <button>Ajouter un élément</button>
+  <div class="list-container">
+    <app-list-item *ngFor="let city of cities" [city]="city" (delete)="deleteCity(city.id)"
+      class="list-element"></app-list-item>
+  </div>
+</div>
 
-  <div>
-    <app-list-item *ngFor="let city of cities" [city]="city" (delete)="deleteCity(city.id)"></app-list-item>
+<div class="modal" *ngIf="isAdd">
+  <div class="modal-content">
+    <div class="modal-content__header">
+      <h2>Ajouter une ville</h2>
+      <button (click)="toggleAdd()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000"
+          stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-circle">
+          <circle cx="12" cy="12" r="10" />
+          <line x1="15" y1="9" x2="9" y2="15" />
+          <line x1="9" y1="9" x2="15" y2="15" />
+        </svg>
+      </button>
+    </div>
+    <div class="modal-content__body">
+      <form (submit)="addCity()">
+        <label for="name">Nom</label>
+        <input type="text" id="name" [(ngModel)]="newCity.name" name="name" required>
+        <label for="country">Pays</label>
+        <input type="text" id="country" [(ngModel)]="newCity.country" name="country" required>
+        <label for="population">Population</label>
+        <input type="number" id="population" [(ngModel)]="newCity.population" name="population" required>
+        <label for="lat">Latitude</label>
+        <input type="number" id="lat" [(ngModel)]="newCity.lat" name="lat" required>
+        <label for="lng">Longitude</label>
+        <input type="number" id="lng" [(ngModel)]="newCity.lng" name="lng" required>
+        <button type="submit">Ajouter</button>
+      </form>
+    </div>
   </div>
 </div>
