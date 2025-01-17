@@ -34,7 +34,7 @@ export class MapComponent implements OnInit {
 
   private flagCustomIcon = L.icon({
     iconUrl: 'assets/icons/flag.svg',
-    iconSize: [25, 41], // size of the icon
+    iconSize: [35, 51], // size of the icon
     iconAnchor: [12, 41],
     popupAnchor: [1, -34], // Popup position
   })
