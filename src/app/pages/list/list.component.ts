@@ -57,7 +57,6 @@ export class ListComponent {
 
   handleSave(city: City) {
     if (this.isEdit) {
-      console.log('update city')
       this.cityService.updateCity(city)
     } else {
       city.id = this.cities.length + 1

@@ -64,11 +64,17 @@ export class MapComponent implements OnInit {
   /* Function to initialize the map */
 
   private initMap(): void {
-    this.map = L.map('map').setView([48.8566, 2.3522], 4)
-
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(
-      this.map,
-    )
+    this.map = L.map('map', {
+      maxBounds: [
+        [-90, -180],
+        [90, 180],
+      ],
+      maxBoundsViscosity: 1.0,
+    }).setView([48.8566, 2.3522], 4) // Set the map view to Paris
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      minZoom: 3,
+      noWrap: true,
+    }).addTo(this.map)
   }
 
   /* Function to add markers to the map */
@@ -86,8 +92,8 @@ export class MapComponent implements OnInit {
       marker.bindPopup(
         // Add a popup to the marker with the city information
         `
-        <div style="font-size: 1.4rem; text-align: center;">
-          <strong style="font-size: 1.6rem; color: #007BFF;">${
+        <div style="font-size: 1rem; text-align: center;">
+          <strong style="font-size: 1rem; color: #007BFF;">${
             city.name
           }</strong><br>
           <span>${city.country}</span><br>
@@ -109,7 +115,7 @@ export class MapComponent implements OnInit {
       L.marker(e.latlng, { icon: this.flagCustomIcon })
         .addTo(this.map!)
         .bindPopup(
-          '<strong style="font-size: 1.6rem; color: #FF0000;" >Vous êtes ici</strong>',
+          '<strong style="font-size: 1rem; color: #FF0000;" >Vous êtes ici !</strong>',
         )
         .openPopup()
       L.circleMarker(e.latlng, { radius }).addTo(this.map!)
