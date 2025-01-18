@@ -34,10 +34,14 @@ export class MapComponent implements OnInit {
 
   private flagCustomIcon = L.icon({
     iconUrl: 'assets/icons/flag.svg',
-    iconSize: [25, 41], // size of the icon
+    iconSize: [35, 51], // size of the icon
     iconAnchor: [12, 41],
     popupAnchor: [1, -34], // Popup position
   })
+
+  public isLocating: boolean = false
+  private userMarker: L.Marker | null = null
+  private radiusCircle: L.CircleMarker | null = null
 
   constructor(private cityService: CityService) {
     afterRender(() => {
@@ -64,11 +68,17 @@ export class MapComponent implements OnInit {
   /* Function to initialize the map */
 
   private initMap(): void {
-    this.map = L.map('map').setView([48.8566, 2.3522], 4)
-
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(
-      this.map,
-    )
+    this.map = L.map('map', {
+      maxBounds: [
+        [-90, -180],
+        [90, 180],
+      ],
+      maxBoundsViscosity: 1.0,
+    }).setView([48.8566, 2.3522], 4) // Set the map view to Paris
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      minZoom: 3,
+      noWrap: true,
+    }).addTo(this.map)
   }
 
   /* Function to add markers to the map */
@@ -86,8 +96,8 @@ export class MapComponent implements OnInit {
       marker.bindPopup(
         // Add a popup to the marker with the city information
         `
-        <div style="font-size: 1.4rem; text-align: center;">
-          <strong style="font-size: 1.6rem; color: #007BFF;">${
+        <div style="font-size: 1rem; text-align: center;">
+          <strong style="font-size: 1rem; color: #007BFF;">${
             city.name
           }</strong><br>
           <span>${city.country}</span><br>
@@ -103,20 +113,35 @@ export class MapComponent implements OnInit {
   /* Function to locate the user on the map with geolocation */
 
   public locateUser(): void {
-    this.map?.locate({ setView: true })
-    this.map?.on('locationfound', (e: L.LocationEvent) => {
-      const radius = e.accuracy / 2
-      L.marker(e.latlng, { icon: this.flagCustomIcon })
-        .addTo(this.map!)
-        .bindPopup(
-          '<strong style="font-size: 1.6rem; color: #FF0000;" >Vous êtes ici</strong>',
+    if (!this.isLocating) {
+      this.map?.locate({ setView: true })
+      this.map?.on('locationfound', (e: L.LocationEvent) => {
+        this.isLocating = true
+        const radius = e.accuracy / 2
+        this.userMarker = L.marker(e.latlng, { icon: this.flagCustomIcon })
+          .addTo(this.map!)
+          .bindPopup(
+            '<strong style="font-size: 1rem; color: #FF0000;" >Vous êtes ici !</strong>',
+          )
+          .openPopup()
+        this.radiusCircle = L.circleMarker(e.latlng, { radius }).addTo(
+          this.map!,
         )
-        .openPopup()
-      L.circleMarker(e.latlng, { radius }).addTo(this.map!)
-    })
+      })
 
-    this.map?.on('locationerror', (e: L.ErrorEvent) => {
-      console.error(e.message)
-    })
+      this.map?.on('locationerror', (e: L.ErrorEvent) => {
+        console.error(e.message)
+      })
+    }
+  }
+
+  /* Function to stop locating the user and remove the marker and circle */
+
+  public stopLocating(): void {
+    this.map?.stopLocate()
+    this.userMarker?.remove()
+    this.radiusCircle?.remove()
+    this.map?.zoomOut(this.map.getZoom() - 4)
+    this.isLocating = false
   }
 }

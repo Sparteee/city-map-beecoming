@@ -49,7 +49,7 @@ export class CityService {
   public updateCity(city: City): void {
     this.citiesSignal.update(cities =>
       cities.map(currentCity =>
-        currentCity === city ? { ...currentCity, ...city } : currentCity,
+        currentCity.id === city.id ? { ...currentCity, ...city } : currentCity,
       ),
     )
   }

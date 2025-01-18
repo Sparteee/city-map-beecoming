@@ -4,16 +4,19 @@ import { Component, effect } from '@angular/core'
 import { City } from '../../models/city.model'
 import { ListItemComponent } from '../../components/list-item/list-item.component'
 import { FormsModule } from '@angular/forms'
+import { ModalComponent } from '../../components/modal/modal.component'
 
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
-  imports: [CommonModule, ListItemComponent, FormsModule],
+  imports: [CommonModule, ListItemComponent, FormsModule, ModalComponent],
 })
 export class ListComponent {
   /* Initialize the newCity object */
-  public newCity: City = {
+  public isModalOpen: boolean = false
+  public isEdit: boolean = false
+  public city: City = {
     id: 0,
     name: '',
     country: '',
@@ -21,28 +24,19 @@ export class ListComponent {
     lat: 0,
     lng: 0,
   }
-
-  public isAdd = false
   public cities: City[] = [] // Initialize the cities array
 
   constructor(private cityService: CityService) {
     effect(() => {
-      this.cities = this.cityService.cities() // Get the cities from the service and put them in the cities array
+      this.cities = this.cityService.cities() // Get the cities from the service
     })
   }
 
-  /* Function to toggle the add modal */
+  /* Open the modal for add */
 
-  public toggleAdd(): void {
-    this.isAdd = !this.isAdd
-  }
-
-  /* Function to add a city */
-
-  public addCity(): void {
-    this.newCity.id = this.cities.length + 1
-    this.cityService.addCity(this.newCity)
-    this.newCity = {
+  public openModalForAdd(): void {
+    this.isEdit = false
+    this.city = {
       id: 0,
       name: '',
       country: '',
@@ -50,7 +44,33 @@ export class ListComponent {
       lat: 0,
       lng: 0,
     }
-    this.toggleAdd()
+    this.isModalOpen = true
+  }
+
+  /* Open the modal for edit */
+
+  public openModalForEdit(editCity: City): void {
+    this.isEdit = true
+    this.city = { ...editCity }
+    this.isModalOpen = true
+  }
+
+  /* Handle the modal close event */
+
+  public handleModalClose(): void {
+    this.isModalOpen = false
+  }
+
+  /* Handle the save event and add or update the city */
+
+  public handleSave(saveCity: City): void {
+    if (this.isEdit) {
+      this.cityService.updateCity(saveCity)
+    } else {
+      saveCity.id = this.cities.length + 1
+      this.cityService.addCity(saveCity)
+    }
+    this.isModalOpen = false
   }
 
   /* Function get the id of the city to delete who are EventEmitter */

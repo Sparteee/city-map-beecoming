@@ -1,5 +1,18 @@
-<div>
-  <button (click)="locateUser()">Locate me</button>
+<div class="flex flex-col items-center justify-center mt-4">
+  <button (click)="locateUser()"
+    class="bg-blue-500 text-white py-3 px-5 rounded-lg hover:bg-blue-600 transition shadow-md">
+    Localise moi
+  </button>
+
+  @if (isLocating) {
+  <button (click)="stopLocating()"
+    class="bg-blue-500 text-white py-3 px-5 rounded-lg hover:bg-blue-600 transition shadow-md mt-4">
+    Retirer ma localisation
+  </button>
+  }
 </div>
 
-<div id="map" class="map-container"></div>
+
+<div class="flex justify-center items-center h-[calc(100vh-96px)] p-4">
+  <div id="map" class="map-container border rounded-lg shadow-lg w-full h-full max-w-7xl max-h-[650px]"></div>
+</div>
