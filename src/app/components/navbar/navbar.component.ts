@@ -8,4 +8,10 @@ import { RouterLink } from '@angular/router'
   styleUrls: ['./navbar.component.scss'],
   imports: [CommonModule, RouterLink],
 })
-export class NavbarComponent {}
+export class NavbarComponent {
+  public isMenuOpen: boolean = false
+
+  public toggleMenu(): void {
+    this.isMenuOpen = !this.isMenuOpen
+  }
+}

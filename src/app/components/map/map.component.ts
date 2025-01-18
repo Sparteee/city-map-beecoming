@@ -39,6 +39,10 @@ export class MapComponent implements OnInit {
     popupAnchor: [1, -34], // Popup position
   })
 
+  public isLocating: boolean = false
+  private userMarker: L.Marker | null = null
+  private radiusCircle: L.CircleMarker | null = null
+
   constructor(private cityService: CityService) {
     afterRender(() => {
       if (this.map) {
@@ -109,20 +113,33 @@ export class MapComponent implements OnInit {
   /* Function to locate the user on the map with geolocation */
 
   public locateUser(): void {
-    this.map?.locate({ setView: true })
-    this.map?.on('locationfound', (e: L.LocationEvent) => {
-      const radius = e.accuracy / 2
-      L.marker(e.latlng, { icon: this.flagCustomIcon })
-        .addTo(this.map!)
-        .bindPopup(
-          '<strong style="font-size: 1rem; color: #FF0000;" >Vous êtes ici !</strong>',
+    if (!this.isLocating) {
+      this.map?.locate({ setView: true })
+      this.map?.on('locationfound', (e: L.LocationEvent) => {
+        this.isLocating = true
+        const radius = e.accuracy / 2
+        this.userMarker = L.marker(e.latlng, { icon: this.flagCustomIcon })
+          .addTo(this.map!)
+          .bindPopup(
+            '<strong style="font-size: 1rem; color: #FF0000;" >Vous êtes ici !</strong>',
+          )
+          .openPopup()
+        this.radiusCircle = L.circleMarker(e.latlng, { radius }).addTo(
+          this.map!,
         )
-        .openPopup()
-      L.circleMarker(e.latlng, { radius }).addTo(this.map!)
-    })
+      })
 
-    this.map?.on('locationerror', (e: L.ErrorEvent) => {
-      console.error(e.message)
-    })
+      this.map?.on('locationerror', (e: L.ErrorEvent) => {
+        console.error(e.message)
+      })
+    }
+  }
+
+  public stopLocating(): void {
+    this.map?.stopLocate()
+    this.userMarker?.remove()
+    this.radiusCircle?.remove()
+    this.map?.zoomOut(this.map.getZoom() - 4)
+    this.isLocating = false
   }
 }
