@@ -9,7 +9,10 @@ import { RouterLink } from '@angular/router'
   imports: [CommonModule, RouterLink],
 })
 export class NavbarComponent {
+  /* Initialize the isMenuOpen variable */
   public isMenuOpen: boolean = false
+
+  /* Function to toggle the burger menu */
 
   public toggleMenu(): void {
     this.isMenuOpen = !this.isMenuOpen

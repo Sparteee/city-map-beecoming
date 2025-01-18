@@ -24,15 +24,17 @@ export class ListComponent {
     lat: 0,
     lng: 0,
   }
-  public cities: City[] = []
+  public cities: City[] = [] // Initialize the cities array
 
   constructor(private cityService: CityService) {
     effect(() => {
-      this.cities = this.cityService.cities()
+      this.cities = this.cityService.cities() // Get the cities from the service
     })
   }
 
-  openModalForAdd() {
+  /* Open the modal for add */
+
+  public openModalForAdd(): void {
     this.isEdit = false
     this.city = {
       id: 0,
@@ -45,22 +47,28 @@ export class ListComponent {
     this.isModalOpen = true
   }
 
-  openModalForEdit(editCity: City) {
+  /* Open the modal for edit */
+
+  public openModalForEdit(editCity: City): void {
     this.isEdit = true
     this.city = { ...editCity }
     this.isModalOpen = true
   }
 
-  handleModalClose() {
+  /* Handle the modal close event */
+
+  public handleModalClose(): void {
     this.isModalOpen = false
   }
 
-  handleSave(city: City) {
+  /* Handle the save event and add or update the city */
+
+  public handleSave(saveCity: City): void {
     if (this.isEdit) {
-      this.cityService.updateCity(city)
+      this.cityService.updateCity(saveCity)
     } else {
-      city.id = this.cities.length + 1
-      this.cityService.addCity(city)
+      saveCity.id = this.cities.length + 1
+      this.cityService.addCity(saveCity)
     }
     this.isModalOpen = false
   }

@@ -135,6 +135,8 @@ export class MapComponent implements OnInit {
     }
   }
 
+  /* Function to stop locating the user and remove the marker and circle */
+
   public stopLocating(): void {
     this.map?.stopLocate()
     this.userMarker?.remove()

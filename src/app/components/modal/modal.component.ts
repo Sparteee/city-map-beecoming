@@ -7,12 +7,12 @@ import { CommonModule } from '@angular/common'
   selector: 'app-modal',
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss'],
-  standalone: true,
   imports: [CommonModule, FormsModule],
 })
 export class ModalComponent {
-  @Input() isEdit: boolean = false
+  @Input() isEdit: boolean = false // Input for knowing if the modal is for editing
   @Input() city: City = {
+    // Input for the city object
     id: 0,
     name: '',
     country: '',
@@ -20,15 +20,19 @@ export class ModalComponent {
     lat: 0,
     lng: 0,
   }
-  @Input() isOpen: boolean = false
-  @Output() close = new EventEmitter<void>()
-  @Output() save = new EventEmitter<City>()
+  @Input() isOpen: boolean = false // Input for knowing if the modal is open
+  @Output() close = new EventEmitter<void>() // Output for closing the modal
+  @Output() save = new EventEmitter<City>() // Output for saving the provided city
 
-  closeModal() {
+  /* Function to send a close modal event */
+
+  public closeModal(): void {
     this.close.emit()
   }
 
-  submitForm() {
+  /* Function to send a save event */
+
+  public submitForm(): void {
     this.save.emit(this.city)
     this.closeModal()
   }
