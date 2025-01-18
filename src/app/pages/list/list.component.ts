@@ -37,6 +37,7 @@ export class ListComponent {
   public openModalForAdd(): void {
     this.isEdit = false
     this.city = {
+      // Reset the city object for sure to be empty even if the modal used for edit before
       id: 0,
       name: '',
       country: '',

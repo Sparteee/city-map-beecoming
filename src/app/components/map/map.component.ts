@@ -116,7 +116,6 @@ export class MapComponent implements OnInit {
     if (!this.isLocating) {
       this.map?.locate({ setView: true })
       this.map?.on('locationfound', (e: L.LocationEvent) => {
-        this.isLocating = true
         const radius = e.accuracy / 2
         this.userMarker = L.marker(e.latlng, { icon: this.flagCustomIcon })
           .addTo(this.map!)
@@ -127,10 +126,12 @@ export class MapComponent implements OnInit {
         this.radiusCircle = L.circleMarker(e.latlng, { radius }).addTo(
           this.map!,
         )
+        this.isLocating = true
       })
 
       this.map?.on('locationerror', (e: L.ErrorEvent) => {
         console.error(e.message)
+        this.isLocating = false
       })
     }
   }
