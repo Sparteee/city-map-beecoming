@@ -1,13 +1,27 @@
-<button (click)="openModalForAdd()">Ajouter un élément</button>
-<div class="list">
-  <div class="list-container">
-    @for (city of cities; track city.id){
-    <app-list-item [city]="city" (delete)="deleteCity(city.id)" (edit)="openModalForEdit($event)"
-      class="list-element"></app-list-item>
-    }
-  </div>
+<div class="flex flex-col items-center justify-center mt-4">
+  <button (click)="openModalForAdd()"
+    class="bg-blue-500 text-white py-3 px-5 rounded-lg hover:bg-blue-600 transition shadow-md">
+    Ajouter une capitale
+  </button>
 </div>
 
-<app-modal [isEdit]="isEdit" [city]="city" [isOpen]="isModalOpen" (close)="handleModalClose()"
-  (save)="handleSave($event)">
-</app-modal>
+<div class="container mx-auto px-4 py-8">
+  @if (cities.length !== 0) {
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+
+    @for (city of cities; track city.id) {
+    <app-list-item [city]="city" (delete)="deleteCity(city.id)" (edit)="openModalForEdit($event)">
+    </app-list-item>
+    }
+  </div>
+  } @else {
+  <div class="flex flex-col items-center justify-center mt-4">
+    <p class="text-center text-gray-500 text-2xl">
+      La liste des capitales est vide
+    </p>
+  </div>
+  }
+
+  <app-modal [isEdit]="isEdit" [city]="city" [isOpen]="isModalOpen" (close)="handleModalClose()"
+    (save)="handleSave($event)">
+  </app-modal>
