@@ -1,59 +1,33 @@
-# CityMapBeecoming
+# City Map - Beecoming
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.7.
+City Map est une application Angular conçue pour voir les capitales du monde
+placé sur une carte interactive avec les informations sur sa population.
+L'application permet également d'ajouter des capitales qui s'ajouteront
+également sur la carte interactive.
 
-## Development server
+## Fonctionnalités principales
 
-To start a local development server, run:
+- Carte du monde interactive avec des marqueurs indiquant les capitales du monde
+  grâce à Leaflet
+- Liste de toutes les capitales avec toutes leurs données
+- Formulaire d'ajout d'une capitale
+- Possibilité de modifier les données d'une capitale ou de la supprimer
+
+## Installation
+
+Clonez ce dépôt et installez les dépendances pour commencer :
+
+```bash
+git clone https://github.com/Sparteee/city-map-beecoming.git
+cd city-map-beecoming
+npm install
+```
+
+Lancez le projet Angular grâce à la commande :
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Après avoir exécuté la commande précédente, l'application sera visible sur
+https://localhost:4200
